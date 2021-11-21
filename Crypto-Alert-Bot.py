@@ -1,3 +1,4 @@
+import os
 from bs4 import BeautifulSoup
 import smtplib
 from email.message import EmailMessage
@@ -8,8 +9,8 @@ user_email = input('Please input your email: ')
 msg = EmailMessage()
 msg['Subject'] = 'Crypto Alert'
 msg['To'] = user_email
-bot_email = 'cryptoalertbot123@gmail.com'
-bot_password = 'REMOVED'
+bot_email = os.getenv('BOT_EMAIL')
+bot_password = os.getenv('BOT_PASSWORD')
 msg['From'] = 'Crypto Alert'
 
 low_price_list = []
@@ -26,7 +27,7 @@ url = 'https://crypto.com/price'
 
 html_text = requests.get(url).text
 soup = BeautifulSoup(html_text, 'lxml')
-cryptocurrencies = soup.find_all('div', class_='css-14s4iyf')
+cryptocurrencies = soup.find_all('a', class_='css-ttxvk0')
 
 for cryptocurrency in cryptocurrencies:
     valid_coin = cryptocurrency.find('span', class_='chakra-text css-1mrk1dy').text.replace(' ', '-')
