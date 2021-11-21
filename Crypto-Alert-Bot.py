@@ -26,7 +26,7 @@ url = 'https://crypto.com/price'
 
 html_text = requests.get(url).text
 soup = BeautifulSoup(html_text, 'lxml')
-cryptocurrencies = soup.find_all('div', class_='css-14s4iyf')
+cryptocurrencies = soup.find_all('a', class_='css-ttxvk0')
 
 for cryptocurrency in cryptocurrencies:
     valid_coin = cryptocurrency.find('span', class_='chakra-text css-1mrk1dy').text.replace(' ', '-')
